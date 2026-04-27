@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Formulario_1 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Formulario_1 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

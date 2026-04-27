@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ========================================================= -->
+<!--                         PÁGINA DE LOGIN                   -->
+<!-- ========================================================= -->
+<Page
+    x:Class="Formulario_1.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Formulario_1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!-- ========================================================= -->
+    <!--                    CONTENEDOR PRINCIPAL                   -->
+    <!-- ========================================================= -->
+    <Grid>
+
+        <!-- División en dos columnas -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ========================================================= -->
+        <!--            LADO IZQUIERDO (DISEÑO / BIENVENIDA)           -->
+        <!-- ========================================================= -->
+        <Grid Grid.Column="0">
+
+            <!-- Fondo con degradado -->
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#00796B" Offset="0"/>
+                    <GradientStop Color="#00796B" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <!-- Elementos decorativos (círculos) -->
+            <Ellipse Width="400" Height="400"
+                     Fill="White"
+                     Opacity="0.15"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Bottom"
+                     Margin="-150,0,0,-200"/>
+
+            <Ellipse Width="300" Height="300"
+                     Fill="White"
+                     Opacity="0.15"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Margin="0,150,-100,0"/>
+
+            <Ellipse Width="250" Height="250"
+                     Fill="White"
+                     Opacity="0.15"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="50,-80,0,0"/>
+
+            <!-- Texto de bienvenida -->
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="10">
+
+                <TextBlock Text="BIENVENIDO!"
+                           FontSize="40"
+                           Foreground="White"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="QUE TENGA UN BUEN DIA"
+                           FontSize="28"
+                           Foreground="White"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ========================================================= -->
+        <!--             LADO DERECHO (FORMULARIO DE LOGIN)            -->
+        <!-- ========================================================= -->
+        <Grid Grid.Column="1" Background="White">
+
+            <!-- Contenedor del formulario -->
+            <StackPanel Width="300"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="15">
+
+                <!-- Título -->
+                <TextBlock Text="Iniciar sesión"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Foreground="#00796B"/>
+
+                <!-- Campo: Usuario -->
+                <TextBox x:Name="txtUsuario"
+                         PlaceholderText="Usuario"
+                         Height="40"
+                         Background="#A0A0A0"
+                         BorderBrush="#00796B"
+                         BorderThickness="1"
+                         CornerRadius="6"/>
+
+                <!-- Campo: Contraseña -->
+                <PasswordBox x:Name="txtPassword"
+                             PlaceholderText="Contraseña"
+                             Height="40"
+                             Background="#A0A0A0"
+                             BorderBrush="#00796B"
+                             BorderThickness="1"
+                             CornerRadius="6"/>
+
+                <!-- Botón: Iniciar sesión -->
+                <Button Content="Login"
+                        Width="295"
+                        Height="40"
+                        Background="#00796B"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Click="Login_Click"/>
+
+                <!-- Botón: Administrar usuarios (registrar/eliminar) -->
+                <Button x:Name="btnRegistrar" 
+                        Width="295"
+                        Height="40"
+                        Background="#00796B"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Content="Administrar usuarios" 
+                        Click="btnIrARegistro_Click" />
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

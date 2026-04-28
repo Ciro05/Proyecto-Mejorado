@@ -8,6 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using System.Text.RegularExpressions;
 
 namespace Formulario_1
 {
@@ -222,6 +225,14 @@ namespace Formulario_1
                 return false;
             }
 
+            string correo = txtCorreo.Text.Trim();
+            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(correo, patron))
+            {
+                await MostrarMensaje("Atención", "El formato del correo electrónico no es válido.");
+                return false;
+            }
+
             if (!dpNacimiento.Date.HasValue || dpNacimiento.Date.Value.DateTime > DateTime.Now)
             {
                 await MostrarMensaje("Error", "Fecha de nacimiento inválida.");
@@ -275,12 +286,16 @@ namespace Formulario_1
 
         private void GuardarCitas(string ruta, List<Cita> citas)
         {
-            string json = JsonSerializer.Serialize(citas, new JsonSerializerOptions
+            // Configuramos las opciones para que se vea bien el JSON y acepte la 'ñ'
+            var opciones = new JsonSerializerOptions
             {
-                WriteIndented = true
-            });
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All)
+            };
 
-            File.WriteAllText(ruta, json);  
+            string json = JsonSerializer.Serialize(citas, opciones);
+
+            File.WriteAllText(ruta, json);
         }
 
         private async Task MostrarMensaje(string titulo, string mensaje)
@@ -321,7 +336,7 @@ namespace Formulario_1
             txtcirugias.Visibility = Visibility.Collapsed;
         }
 
-        private void GuardarDatosLogin(string usuario, bool recordar)
+        private static void GuardarDatosLogin(string usuario, bool recordar)
         {
             try
             {
@@ -334,10 +349,14 @@ namespace Formulario_1
                     RecordarSesion = recordar
                 };
 
-                string json = JsonSerializer.Serialize(datos, new JsonSerializerOptions
+                // Agregamos las opciones con el Encoder
+                var opciones = new JsonSerializerOptions
                 {
-                    WriteIndented = true
-                });
+                    WriteIndented = true,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All)
+                };
+
+                string json = JsonSerializer.Serialize(datos, opciones);
 
                 File.WriteAllText(rutaLogin, json);
             }

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.UI;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Formulario_1
 {
@@ -371,8 +373,13 @@ namespace Formulario_1
                     Rol = rol
                 });
 
-                File.WriteAllText(ruta, JsonSerializer.Serialize(lista,
-                    new JsonSerializerOptions { WriteIndented = true }));
+                var opciones = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All)
+                };
+
+                File.WriteAllText(ruta, JsonSerializer.Serialize(lista, opciones));
             }
             catch (Exception ex)
             {

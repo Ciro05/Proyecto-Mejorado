@@ -170,7 +170,7 @@
                             <!-- CORREO -->
                             <StackPanel Grid.Row="1" Grid.Column="1" Spacing="5">
                                 <TextBlock Text="Correo"/>
-                                <TextBox Height="40"/>
+                                <TextBox x:Name="txtCorreo" Height="40"/>
                             </StackPanel>
 
                         </Grid>

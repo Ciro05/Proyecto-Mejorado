@@ -32,6 +32,7 @@
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="BorderBrush" Value="#CCCCCC"/>
                 <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="CornerRadius" Value="6"/>
             </Style>
 
             <!-- Estilo para contraseñas -->
@@ -77,6 +78,12 @@
                         <TextBlock Text="Asignación de cita"
                                    FontSize="20"
                                    FontWeight="SemiBold"
+                                   Foreground="#00796B"/>
+
+                        <TextBlock x:Name="txtIdCita"
+                                   Text="Folio de cita: "
+                                   FontSize="16"
+                                   FontWeight="Bold"
                                    Foreground="#00796B"/>
 
                         <Grid ColumnSpacing="20">

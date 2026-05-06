@@ -17,10 +17,13 @@ namespace Formulario_1
     public sealed partial class LoginPage : Page
     {
         // --- CONSTRUCTOR ---
+
         public LoginPage()
         {
             this.InitializeComponent();
         }
+
+
 
         // =====================================================
         //                    INICIO DE SESIÓN
@@ -47,6 +50,25 @@ namespace Formulario_1
             else
             {
                 await MostrarMensaje("Error de Acceso", resultado);
+            }
+        }
+
+
+        // =====================================================
+        //                    VER REPORTES (ADMIN)
+        // =====================================================
+        private async void VerReportes_Click(object sender, RoutedEventArgs e)
+        {
+            string user = txtUsuario.Text;
+            string pass = txtPassword.Password;
+
+            if (EsAdminValido(user, pass))
+            {
+                this.Frame.Navigate(typeof(ReportsPage));
+            }
+            else
+            {
+                await MostrarMensaje("Acceso denegado", "Solo administradores pueden ver reportes.");
             }
         }
 

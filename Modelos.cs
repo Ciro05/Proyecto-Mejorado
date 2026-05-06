@@ -8,22 +8,46 @@ namespace Formulario_1
     // =========================================================
     public class Cita
     {
+        // --- ID UNICO PARA CADA CITA ---
+        public int Id { get; set; }
         // --- DATOS DE LA CITA ---
         public string Doctor { get; set; } = "";          // Nombre del doctor asignado
         public DateTime FechaCita { get; set; }           // Fecha de la cita
         public string Hora { get; set; } = "";            // Hora seleccionada
 
+        public string FechaCitaFormateada => FechaCita.ToString("dd/MM/yyyy");
+
         // --- DATOS DEL PACIENTE ---
         public string Nombre { get; set; } = "";          // Nombre completo del paciente
         public string Telefono { get; set; } = "";        // Teléfono (10 dígitos)
         public DateTime FechaNacimiento { get; set; }     // Fecha de nacimiento
+        public int Edad
+        {
+            get
+            {
+                if (FechaNacimiento == default)
+                    return 0;
+
+                var hoy = DateTime.Today;
+                int edad = hoy.Year - FechaNacimiento.Year;
+
+                if (FechaNacimiento.Date > hoy.AddYears(-edad))
+                    edad--;
+
+                return edad;
+            }
+        }
 
         // --- HISTORIAL MÉDICO ---
         public bool TieneEnfermedades { get; set; }       // Indicador de enfermedades crónicas
         public string Enfermedades { get; set; } = "";    // Detalle de enfermedades
+        public string EnfermedadesTexto =>
+               string.IsNullOrWhiteSpace(Enfermedades) ? "Ninguna" : Enfermedades;
 
         public bool TieneCirugias { get; set; }           // Indicador de cirugías previas
         public string Cirugias { get; set; } = "";        // Detalle de cirugías
+        public string CirugiasTexto =>
+               string.IsNullOrWhiteSpace(Cirugias) ? "Ninguna" : Cirugias;
 
         public string Medicamentos { get; set; } = "";    // Medicamentos actuales
         public string Alergias { get; set; } = "";        // Alergias del paciente
@@ -54,4 +78,6 @@ namespace Formulario_1
         public string Password { get; set; } = "";        // Contraseña
         public string Rol { get; set; } = "";             // Rol (Admin, Doctor, Recepcion)
     }
+
+
 }

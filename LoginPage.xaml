@@ -15,6 +15,19 @@
     <!-- ========================================================= -->
     <!--                    CONTENEDOR PRINCIPAL                   -->
     <!-- ========================================================= -->
+    <Page.Resources>
+
+        <!-- Mantener texto visible -->
+        <SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>
+        <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="Black"/>
+
+        <!-- Mantener placeholder visible -->
+        <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="Gray"/>
+        
+        
+
+    </Page.Resources>
+    
     <Grid>
 
         <!-- División en dos columnas -->
@@ -31,18 +44,18 @@
             <!-- Fondo con degradado -->
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#00796B" Offset="0"/>
-                    <GradientStop Color="#00796B" Offset="1"/>
+                    <GradientStop Color="#00896B" Offset="0"/>
+                    <GradientStop Color="#003D40" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
 
             <!-- Elementos decorativos (círculos) -->
             <Ellipse Width="400" Height="400"
                      Fill="White"
-                     Opacity="0.15"
+                     Opacity=".15"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Bottom"
-                     Margin="-150,0,0,-200"/>
+                     Margin="-130,0,0,-150"/>
 
             <Ellipse Width="300" Height="300"
                      Fill="White"
@@ -53,7 +66,7 @@
 
             <Ellipse Width="250" Height="250"
                      Fill="White"
-                     Opacity="0.15"
+                     Opacity=".15"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"
                      Margin="50,-80,0,0"/>
@@ -64,15 +77,16 @@
                         Spacing="10">
 
                 <TextBlock Text="BIENVENIDO!"
+                           HorizontalAlignment="Center"
                            FontSize="40"
                            Foreground="White"
-                           FontWeight="Bold"/>
+                           FontWeight="ExtraBlack"/>
 
                 <TextBlock Text="QUE TENGA UN BUEN DIA"
+                           HorizontalAlignment="Center"
                            FontSize="28"
                            Foreground="White"
-                           FontWeight="SemiBold"
-                           TextAlignment="Center"/>
+                           FontWeight="Black"/>
             </StackPanel>
         </Grid>
 
@@ -82,54 +96,66 @@
         <Grid Grid.Column="1" Background="White">
 
             <!-- Contenedor del formulario -->
-            <StackPanel Width="300"
-                        VerticalAlignment="Center"
+            <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Spacing="15">
-
-                <!-- Título -->
-                <TextBlock Text="Iniciar sesión"
-                           FontSize="32"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           Foreground="#00796B"/>
-
-                <!-- Campo: Usuario -->
-                <TextBox x:Name="txtUsuario"
-                         PlaceholderText="Usuario"
-                         Height="40"
-                         Background="#A0A0A0"
-                         BorderBrush="#00796B"
-                         BorderThickness="1"
-                         CornerRadius="6"/>
-
-                <!-- Campo: Contraseña -->
-                <PasswordBox x:Name="txtPassword"
-                             PlaceholderText="Contraseña"
-                             Height="40"
-                             Background="#A0A0A0"
-                             BorderBrush="#00796B"
-                             BorderThickness="1"
-                             CornerRadius="6"/>
-
-                <!-- Botón: Iniciar sesión -->
-                <Button Content="Login"
-                        Width="295"
-                        Height="40"
-                        Background="#00796B"
-                        Foreground="White"
+          
+            <!-- Título -->
+            <TextBlock Text="Iniciar sesión"
+                        FontSize="32"
+                        FontWeight="ExtraBlack"
                         HorizontalAlignment="Center"
-                        Click="Login_Click"/>
+                        Foreground="#00796B"/>
+
+            <!-- Campo: Usuario -->
+            <TextBox x:Name="txtUsuario"
+                        PlaceholderText="Usuario"
+                        PlaceholderForeground="Gray"
+                        Foreground="Black"
+                        Height="40"
+                        Background="White"
+                        BorderBrush="#00796B"
+                        BorderThickness="2"
+                        CornerRadius="6"/>
+
+            <!-- Campo: Contraseña -->
+            <PasswordBox x:Name="txtPassword"
+                            PlaceholderText="Contraseña"
+                            PasswordRevealMode="Peek"
+                            Foreground="Black"
+                            Height="40"
+                            Background="White"
+                            BorderBrush="#00796B"
+                            BorderThickness="2"
+                            CornerRadius="6"/>
+
+            <!-- Botón: Iniciar sesión -->
+            <Button Content="Login"
+                    Width="295"
+                    Height="40"
+                    Background="#00796B"
+                    Foreground="White"
+                    HorizontalAlignment="Center"
+                    Click="Login_Click"/>
+
+             <!-- Botón: Ver reportes -->
+             <Button Content="Ver reportes"
+                     Width="295" 
+                     Height="40"
+                     Background="#00796B"
+                     Foreground="White"
+                     HorizontalAlignment="Center"
+                     Click="VerReportes_Click"/>
 
                 <!-- Botón: Administrar usuarios (registrar/eliminar) -->
                 <Button x:Name="btnRegistrar" 
-                        Width="295"
-                        Height="40"
-                        Background="#00796B"
-                        Foreground="White"
-                        HorizontalAlignment="Center"
-                        Content="Administrar usuarios" 
-                        Click="btnIrARegistro_Click" />
+                    Width="295"
+                    Height="40"
+                    Background="#00796B"
+                    Foreground="White"
+                    HorizontalAlignment="Center"
+                    Content="Administrar usuarios" 
+                    Click="btnIrARegistro_Click" />
 
             </StackPanel>
         </Grid>

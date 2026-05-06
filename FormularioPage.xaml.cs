@@ -16,6 +16,7 @@ namespace Formulario_1
 {
     public sealed partial class FormularioPage : Page
     {
+        private int idActual = 0;
         // --- CONSTRUCTOR ---
         // Inicializa componentes, tema y carga datos iniciales
         public FormularioPage()
@@ -26,6 +27,27 @@ namespace Formulario_1
             dpNacimiento.MinDate = new DateTimeOffset(new DateTime(1910, 1, 1));
 
             CargarDoctores();
+
+            idActual = GenerarNuevoId();
+            txtIdCita.Text = $"Folio de cita: {idActual:D3}";
+        }
+
+        // MÉTODO PARA GENERAR ID
+        private int GenerarNuevoId()
+        {
+            string ruta = @"C:\AppCitas\citas.json";
+
+            if (!File.Exists(ruta))
+                return 1;
+
+            var citas = System.Text.Json.JsonSerializer
+                .Deserialize<List<Cita>>(File.ReadAllText(ruta))
+                ?? new List<Cita>();
+
+            if (citas.Count == 0)
+                return 1;
+
+            return citas.Max(c => c.Id) + 1;
         }
 
         // --- EVENTO DE NAVEGACIÓN ---
@@ -143,6 +165,9 @@ namespace Formulario_1
             // --- VALIDAR DISPONIBILIDAD ---
             var citas = CargarCitas(rutaCitas);
 
+            //  --- GENERAR ID AUTOMÁTICO ---
+            int nuevoId = citas.Any() ? citas.Max(c => c.Id) + 1 : 1;
+
             bool ocupado = citas.Any(c =>
                 c.Doctor == doctorSeleccionado &&
                 c.FechaCita.Date == fechaCita.Date &&
@@ -154,9 +179,11 @@ namespace Formulario_1
                 return;
             }
 
+
             // --- CREAR NUEVA CITA ---
             Cita nueva = new Cita
-            { 
+            {
+                Id = idActual, 
                 Doctor = doctorSeleccionado,
                 FechaCita = fechaCita,
                 Hora = horaSeleccionada,
@@ -176,10 +203,12 @@ namespace Formulario_1
             // --- GUARDAR ---
             citas.Add(nueva);
             GuardarCitas(rutaCitas, citas);
-
+            txtIdCita.Text = $"ID: {nuevoId:D3}";
             await MostrarMensaje("¡Logrado!", "Cita guardada correctamente.");
 
             LimpiarFormulario();
+            idActual = GenerarNuevoId();
+            txtIdCita.Text = $"ID: {idActual:D3}";
         }
 
         // =====================================================
@@ -321,6 +350,7 @@ namespace Formulario_1
 
             txtNombre.Text = "";
             txtTelefono.Text = "";
+            txtCorreo.Text = "";
             txtenfermedades.Text = "";
             txtcirugias.Text = "";
             txtMedicamentos.Text = "";
@@ -334,6 +364,8 @@ namespace Formulario_1
 
             txtenfermedades.Visibility = Visibility.Collapsed;
             txtcirugias.Visibility = Visibility.Collapsed;
+
+            txtIdCita.Text = "ID: ---";
         }
 
         private static void GuardarDatosLogin(string usuario, bool recordar)
